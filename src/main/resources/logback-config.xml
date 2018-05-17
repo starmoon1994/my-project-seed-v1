@@ -12,9 +12,24 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${encoder_pattern}</pattern>
-            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
             <charset>UTF-8</charset>
         </encoder>
+    </appender>
+
+    <appender name="FILE_All" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME_PATH}/level_all.%d.%i.log</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${maxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${encoder_pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
     </appender>
 
     <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -48,7 +63,6 @@
         </rollingPolicy>
         <encoder>
             <pattern>${encoder_pattern}</pattern>
-            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
             <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -68,7 +82,6 @@
         </rollingPolicy>
         <encoder>
             <pattern>${encoder_pattern}</pattern>
-            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
             <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -89,9 +102,9 @@
         </rollingPolicy>
         <encoder>
             <pattern>${encoder_pattern}</pattern>
-            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
             <charset>UTF-8</charset>
         </encoder>
+
     </appender>
 
 
@@ -106,7 +119,6 @@
         </rollingPolicy>
         <encoder>
             <pattern>${encoder_pattern}</pattern>
-            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
             <charset>UTF-8</charset>
         </encoder>
     </appender>
@@ -137,12 +149,13 @@
     </appender>
 
     <!-- 控制台输出日志级别 -->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <!--<appender-ref ref="FILE_DEBUG"/>-->
+        <appender-ref ref="FILE_All"/>
+        <appender-ref ref="FILE_DEBUG"/>
+        <appender-ref ref="ASYNC_INFO"/>
         <appender-ref ref="FILE_ERROR"/>
         <!--<appender-ref ref="FILE_SELF"/>-->
-        <appender-ref ref="ASYNC_INFO"/>
     </root>
 
     <!--配置druid的SQL日志输出-->
@@ -156,8 +169,8 @@
 
 
     <!-- <logger name="com.mchange" level="ERROR" /> -->
-    <!-- <logger name="org.springframework" level="ERROR" /> -->
-    <!-- <logger name="org.mybatis" level="ERROR" /> -->
+     <logger name="org.springframework" level="ERROR" />
+     <logger name="org.mybatis" level="ERROR" />
     <!-- <logger name="org.apache.activemq" level="ERROR" /> -->
 
     <logger name="java.sql.Connection" level="DEBUG" />

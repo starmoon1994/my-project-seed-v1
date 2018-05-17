@@ -2,6 +2,7 @@ package com.company.project.controller;
 
 import com.company.project.model.SysUser;
 import com.company.project.service.SysUserService;
+import com.company.project.service.impl.SysUserServiceImpl;
 import com.company.project.support.result.Result;
 import com.company.project.support.result.ResultGenerator;
 import com.github.pagehelper.PageHelper;
@@ -20,7 +21,7 @@ import java.util.List;
 public class SysUserRoleController {
 
     @Autowired
-    private SysUserService sysUserService;
+    private SysUserServiceImpl sysUserService;
 
     @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {

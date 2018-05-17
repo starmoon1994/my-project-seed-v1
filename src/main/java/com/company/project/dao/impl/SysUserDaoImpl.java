@@ -1,5 +1,6 @@
 package com.company.project.dao.impl;
 
+import com.company.project.dao.AbstractDao;
 import com.company.project.dao.SysUserDao;
 import com.company.project.mapper.SysUserMapper;
 import com.company.project.model.SysUser;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by hyp-company on 2018/5/11.
  */
 @Repository
-public class SysUserDaoImpl implements SysUserDao{
+public class SysUserDaoImpl extends AbstractDao<SysUser> implements SysUserDao{
 
     @Autowired
     private SysUserMapper sysUserMapper;
