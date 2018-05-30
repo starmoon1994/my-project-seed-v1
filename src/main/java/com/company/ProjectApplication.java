@@ -4,10 +4,13 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication
+
 @MapperScan("com.company.project.mapper")
-@ImportResource(locations = {"classpath:application-bean.xml", "classpath:application-druid.xml"})
+@ImportResource(locations = {"classpath:spring-bean.xml", "classpath:spring-druid.xml"})
+@SpringBootApplication
+@EnableScheduling
 public class ProjectApplication {
 
     public static void main(String[] args) {

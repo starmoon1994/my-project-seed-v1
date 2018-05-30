@@ -1,4 +1,4 @@
-package com.company.project.support.db;
+package com.company.project.support.dbhandler;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.ibatis.type.JdbcType;
@@ -8,10 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringListHandler implements TypeHandler<List<String>> {
+public class IntegerListHandler implements TypeHandler<List<Integer>> {
 
 	@Override
-	public void setParameter(PreparedStatement ps, int i, List<String> parameter, JdbcType jdbcType) throws SQLException {
+	public void setParameter(PreparedStatement ps, int i, List<Integer> parameter, JdbcType jdbcType) throws SQLException {
 		if (parameter != null && parameter.size() > 0) {
 			String json = JSON.toJSONString(parameter);
 			ps.setString(i, json);
@@ -21,30 +21,30 @@ public class StringListHandler implements TypeHandler<List<String>> {
 	}
 
 	@Override
-	public List<String> getResult(ResultSet rs, String columnName) throws SQLException {
+	public List<Integer> getResult(ResultSet rs, String columnName) throws SQLException {
 		String columnValue = rs.getString(columnName);
 		if (columnValue != null) {
-			return JSON.parseArray(columnValue, String.class);
+			return JSON.parseArray(columnValue, Integer.class);
 		}else{
 			return new ArrayList<>();
 		}
 	}
 
 	@Override
-	public List<String> getResult(ResultSet rs, int columnIndex) throws SQLException {
+	public List<Integer> getResult(ResultSet rs, int columnIndex) throws SQLException {
 		String columnValue = rs.getString(columnIndex);
 		if (columnValue != null) {
-			return JSON.parseArray(columnValue, String.class);
+			return JSON.parseArray(columnValue, Integer.class);
 		}else{
 			return new ArrayList<>();
 		}
 	}
 
 	@Override
-	public List<String> getResult(CallableStatement cs, int columnIndex) throws SQLException {
+	public List<Integer> getResult(CallableStatement cs, int columnIndex) throws SQLException {
 		String columnValue = cs.getString(columnIndex);
 		if (columnValue != null) {
-			return JSON.parseArray(columnValue, String.class);
+			return JSON.parseArray(columnValue, Integer.class);
 		}else{
 			return new ArrayList<>();
 		}

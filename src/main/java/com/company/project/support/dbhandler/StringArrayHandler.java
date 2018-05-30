@@ -1,4 +1,4 @@
-package com.company.project.support.db;
+package com.company.project.support.dbhandler;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.ibatis.type.JdbcType;
