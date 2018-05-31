@@ -4,6 +4,7 @@ import com.alibaba.druid.stat.DruidStatService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +27,11 @@ public class DruidLogTask {
 
     // 启动后延迟5秒调用  每5*60*1000即5分钟记录一次
 //    @Scheduled(initialDelay = 5000, fixedDelay = 300000)
-    @Scheduled(initialDelay = 5000, fixedDelay = 20000)        // only for test
-    public void log() {
+    @Scheduled(initialDelay = 5000, fixedDelay = 20000)
+    @Async// 定时任务异步化  还需在启动类上加@EnableAsync
+    public void log() throws InterruptedException {
+        System.out.println("DruidLogTask log 开始====" + LocalDateTime.now().toString());
+        Thread.sleep(1000);
         // 首次启动标志
         if (isFirstflag) {
             myLogger.info("===============已重启，重启时间是{}，开始新的记录===============", LocalDateTime.now().toString());
@@ -63,6 +67,9 @@ public class DruidLogTask {
         allResult.put("/spring.json", JSONObject.parseObject(springJson));
 
         myLogger.info("Druid监控定时记录，allResult==={}", allResult.toJSONString());
+
+
+        System.out.println("DruidLogTask log 结束====" + LocalDateTime.now().toString());
 
     }
 }
